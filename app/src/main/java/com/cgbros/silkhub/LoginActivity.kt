@@ -4,6 +4,13 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
+import com.facebook.AccessToken
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.FacebookSdk
+import com.facebook.login.LoginResult
+import com.google.firebase.auth.FacebookAuthProvider
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -11,6 +18,7 @@ class LoginActivity : AppCompatActivity() {
 
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val openSessionsRef: DatabaseReference = database.getReference("open_sessions")
+    private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
     private val that = this
 
@@ -76,8 +84,8 @@ class LoginActivity : AppCompatActivity() {
 
                                 Log.d("login", "user: $user")
 
-                                val intent: Intent = Intent(that, MainActivity::class.java)
-                                startActivity(intent)
+//                                val intent: Intent = Intent(that, MainActivity::class.java)
+//                                startActivity(intent)
                             } else {
                                 Log.e("login", "Error on complete listener",
                                         authResult.exception)
