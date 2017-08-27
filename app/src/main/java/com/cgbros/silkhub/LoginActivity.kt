@@ -1,10 +1,12 @@
 package com.cgbros.silkhub
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
 import com.facebook.AccessToken
+import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginResult
@@ -17,7 +19,9 @@ class LoginActivity : AppCompatActivity() {
 
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val openSessionsRef: DatabaseReference = database.getReference("open_sessions")
+
     private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val mCallbackManager: CallbackManager = CallbackManager.Factory.create()
 
     private val that = this
 
@@ -32,6 +36,9 @@ class LoginActivity : AppCompatActivity() {
         // Show open sessions
         openSessionsRef.addValueEventListener(MyListener())
 
+        // Wrap login button
+        val facebookLoginCallback = FacebookLoginCallback()
+        facebook_login_button.registerCallback(mCallbackManager, facebookLoginCallback)
     }
 
     inner class MyListener : ValueEventListener {
@@ -83,8 +90,8 @@ class LoginActivity : AppCompatActivity() {
 
                                 Log.d("login", "user: $user")
 
-//                                val intent: Intent = Intent(that, MainActivity::class.java)
-//                                startActivity(intent)
+                                val intent = Intent(that, MainActivity::class.java)
+                                startActivity(intent)
                             } else {
                                 Log.e("login", "Error on complete listener",
                                         authResult.exception)
