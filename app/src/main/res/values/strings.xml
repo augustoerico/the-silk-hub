@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Silk Hub</string>
     <string name="facebook_app_id">232305737294788</string>
+    <string name="fb_login_protocol_scheme">fb232305737294788</string>
 </resources>

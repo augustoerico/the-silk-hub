@@ -41,6 +41,11 @@ class LoginActivity : AppCompatActivity() {
         facebook_login_button.registerCallback(mCallbackManager, facebookLoginCallback)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        mCallbackManager.onActivityResult(requestCode, resultCode, data)
+    }
+
     inner class MyListener : ValueEventListener {
 
         override fun onCancelled(error: DatabaseError?) {
@@ -73,7 +78,7 @@ class LoginActivity : AppCompatActivity() {
             // TODO send user some feedback
         }
 
-        private fun handleAccessToken(accessToken: AccessToken?): Unit {
+        private fun handleAccessToken(accessToken: AccessToken?) {
 
             val token: String = accessToken?.token ?: ""
             Log.d("login", "Handle Facebook access accessToken [$token]")
