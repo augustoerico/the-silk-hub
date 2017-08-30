@@ -1,15 +1,19 @@
 package com.cgbros.silkhub
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_profile.*
 
 class ProfileActivity : AppCompatActivity() {
 
     private val mAuth = FirebaseAuth.getInstance()
+    private val database = FirebaseDatabase.getInstance()
+
+    private val profilesRef = database.getReference("profiles")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +23,6 @@ class ProfileActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        // FIXME this snippet is repeated everywhere
         val currentUser = mAuth.currentUser
         if (currentUser == null) {
             val intent = Intent(this, LoginActivity::class.java)
@@ -41,13 +44,29 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun save() {
 
-        // TODO save to DB
+        val uid = mAuth.currentUser!!.uid
 
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+        val profile = Profile(
+                uid = uid,
+                nickname = profile_nickname.text.toString(),
+                platform = Platform.fromId(profile_platform.checkedRadioButtonId),
+                alignment = PlayerAlignment.fromValues(
+                        profile_law_chaos.progress,
+                        profile_good_evil.progress
+                )
+        )
 
-        Toast.makeText(this, "Saved!", Toast.LENGTH_SHORT).show()
+        profilesRef.child(uid)
+                .setValue(profile.toMap())
+                .addOnCompleteListener {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
 
-        return
+                    Toast.makeText(this, "Saved!", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "Ops, something is wrong", Toast.LENGTH_SHORT).show()
+                }
+
     }
 }
