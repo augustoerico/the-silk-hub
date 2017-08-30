@@ -37,6 +37,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun profile() {
         Log.d("HOME", "profile")
+        val intent = Intent(this, ProfileActivity::class.java)
+        startActivity(intent)
+        return
     }
 
     private fun createSession() {
