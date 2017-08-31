@@ -44,5 +44,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun createSession() {
         Log.d("HOME", "createSession")
+        val intent = Intent(this, CreateSessionActivity::class.java)
+        startActivity(intent)
+        return
     }
 }
