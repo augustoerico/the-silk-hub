@@ -1,13 +1,17 @@
 package com.cgbros.silkhub
 
-class Profile(val uid: String, val nickname: String, val platform: Platform,
-              val alignment: PlayerAlignment) {
+object Profile {
+
+    var uid: String = ""
+    var nickname: String = ""
+    var platform: String = Platform.PC.toString()
+    var alignment: String = PlayerAlignment.TRUE_NEUTRAL.toString()
 
     fun toMap() = mapOf(
             "uid" to uid,
             "nickname" to nickname,
-            "platform" to platform.toString(),
-            "alignment" to alignment.toString()
+            "platform" to platform,
+            "alignment" to alignment
     )
 
 }
