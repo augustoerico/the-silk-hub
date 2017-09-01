@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             return
         }
+
         main_current_session_button.setOnClickListener { currentSession() }
         main_profile_button.setOnClickListener { profile() }
         main_create_session_button.setOnClickListener { createSession() }
