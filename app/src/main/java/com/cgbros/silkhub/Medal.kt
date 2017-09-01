@@ -1,0 +1,8 @@
+package com.cgbros.silkhub
+
+enum class Medal {
+
+    TROLL, NEWBIE, QUITTER, AGGRESSIVE, ANNOYING,
+    SHARPSHOOTER, DRIVER, FRIENDLY, COMMUNICATIVE, LEADER
+
+}

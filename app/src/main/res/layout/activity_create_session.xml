@@ -11,46 +11,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RadioGroup
-            android:id="@+id/create_session_players"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="24dp"
-            android:layout_gravity="center">
-
-            <RadioButton
-                android:id="@+id/create_session_1_player"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:button="@null"
-                android:layout_weight="1"
-                android:paddingTop="16dp"
-                android:checked="true"
-                android:background="@drawable/checkbox_background" />
-
-            <RadioButton
-                android:id="@+id/create_session_2_player"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:button="@null"
-                android:layout_weight="1"
-                android:paddingTop="16dp"
-                android:checked="true"
-                android:background="@drawable/checkbox_background" />
-
-            <RadioButton
-                android:id="@+id/create_session_3_player"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:button="@null"
-                android:layout_weight="1"
-                android:paddingTop="16dp"
-                android:checked="true"
-                android:background="@drawable/checkbox_background" />
-
-        </RadioGroup>
-
         <Spinner
             android:id="@+id/create_session_jobs"
             android:layout_width="match_parent"
