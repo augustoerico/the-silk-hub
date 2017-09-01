@@ -32,4 +32,6 @@ class Profile(var uid: String,
             "platform" to platform.toString(),
             "alignment" to alignment.toString()
     )
+
+    fun isEmpty() = uid.isEmpty() && nickname.isEmpty()
 }

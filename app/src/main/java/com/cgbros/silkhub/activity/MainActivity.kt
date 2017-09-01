@@ -4,7 +4,10 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.cgbros.silkhub.R
+import com.cgbros.silkhub.model.User
+import com.cgbros.silkhub.singleton.LoggedInUser
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -28,9 +31,20 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        main_current_session_button.setOnClickListener { currentSession() }
-        main_profile_button.setOnClickListener { profile() }
-        main_create_session_button.setOnClickListener { createSession() }
+        LoggedInUser
+                .get { user: User ->
+                    if (user.currentSession != "") {
+                        Toast.makeText(
+                                this, "IT HAS A SESSION", Toast.LENGTH_LONG
+                        ).show()
+                    }
+
+                    Toast.makeText(this, user.toStringMap().toString(), Toast.LENGTH_LONG).show()
+
+                    main_current_session_button.setOnClickListener { currentSession() }
+                    main_profile_button.setOnClickListener { profile() }
+                    main_create_session_button.setOnClickListener { createSession() }
+                }
     }
 
     private fun currentSession() {
