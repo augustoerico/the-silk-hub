@@ -2,6 +2,7 @@ package com.cgbros.silkhub.singleton
 
 import com.cgbros.silkhub.model.Profile
 import com.cgbros.silkhub.model.User
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -15,7 +16,7 @@ object LoggedInUser {
     private val uid = FirebaseAuth.getInstance().currentUser!!.uid
     private val userRef = FirebaseDatabase.getInstance().reference.child("users/$uid")
 
-    fun get(callback: (user: User) -> Unit): LoggedInUser {
+    fun getInstance(callback: (user: User) -> Unit): LoggedInUser {
         if (instance.isEmpty()) {
 
             userRef.child("profile").addValueEventListener(object : ValueEventListener {
@@ -50,9 +51,11 @@ object LoggedInUser {
         return this
     }
 
-    fun set(user: User): LoggedInUser {
-        instance = user
+    fun setInstance(callback: (user: User) -> Unit): LoggedInUser {
+        callback(instance)
         return this
     }
+
+    fun publish(): Task<Void> = userRef.updateChildren(instance.toStringMap())
 
 }

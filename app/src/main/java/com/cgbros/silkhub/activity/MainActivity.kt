@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         LoggedInUser
-                .get { user: User ->
+                .getInstance { user: User ->
                     if (user.currentSession != "") {
                         Toast.makeText(
                                 this, "IT HAS A SESSION", Toast.LENGTH_LONG
