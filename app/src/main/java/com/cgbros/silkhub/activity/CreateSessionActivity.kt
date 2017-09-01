@@ -10,16 +10,14 @@ import android.widget.Toast
 import com.cgbros.silkhub.enumerator.Job
 import com.cgbros.silkhub.R
 import com.cgbros.silkhub.model.Session
+import com.cgbros.silkhub.singleton.LoggedInProfile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_create_session.*
 
 class CreateSessionActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
-    private val currentUser = FirebaseAuth.getInstance().currentUser
-    private var session: Session = Session(currentUser!!.uid, Job.FLEECA_JOB)
-
-    val openSessionsRef = FirebaseDatabase.getInstance().getReference("open_sessions")
+    private var session: Session = Session(Job.FLEECA_JOB, LoggedInProfile.instance, arrayListOf())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,8 +50,9 @@ class CreateSessionActivity : AppCompatActivity(), AdapterView.OnItemSelectedLis
     }
 
     private fun createSession() {
-
-        openSessionsRef.push().setValue(session.toMap())
+        FirebaseDatabase.getInstance().getReference("open_sessions")
+                .push()
+                .setValue(session.toStringMap())
 
         Toast.makeText(this, "Session created", Toast.LENGTH_SHORT).show()
 
