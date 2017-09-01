@@ -37,9 +37,8 @@ class MainActivity : AppCompatActivity() {
                         Toast.makeText(
                                 this, "IT HAS A SESSION", Toast.LENGTH_LONG
                         ).show()
+                        // TODO disable create new session or join another session
                     }
-
-                    Toast.makeText(this, user.toStringMap().toString(), Toast.LENGTH_LONG).show()
 
                     main_current_session_button.setOnClickListener { currentSession() }
                     main_profile_button.setOnClickListener { profile() }

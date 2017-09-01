@@ -37,7 +37,6 @@ class ProfileActivity : AppCompatActivity() {
 
         LoggedInUser
                 .getInstance { user: User ->
-                    Toast.makeText(this, "AEHOOOOO: ${user.toStringMap()}", Toast.LENGTH_SHORT).show()
                     val alignment = PlayerAlignment.axisValues(user.profile.alignment)
 
                     (profile_nickname as TextView).text = user.profile.nickname

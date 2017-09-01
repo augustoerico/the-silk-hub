@@ -7,11 +7,10 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import com.cgbros.silkhub.enumerator.Job
 import com.cgbros.silkhub.R
+import com.cgbros.silkhub.enumerator.Job
 import com.cgbros.silkhub.model.Session
 import com.cgbros.silkhub.singleton.LoggedInProfile
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_create_session.*
 
