@@ -1,4 +1,4 @@
-package com.cgbros.silkhub
+package com.cgbros.silkhub.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,10 @@ import android.widget.RadioGroup
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
+import com.cgbros.silkhub.singleton.LoggedInProfile
+import com.cgbros.silkhub.enumerator.Platform
+import com.cgbros.silkhub.enumerator.PlayerAlignment
+import com.cgbros.silkhub.R
 import com.cgbros.silkhub.model.Profile
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_profile.*

@@ -1,4 +1,6 @@
-package com.cgbros.silkhub
+package com.cgbros.silkhub.model
+
+import com.cgbros.silkhub.enumerator.Job
 
 class Session(var hostUid: String, var job: Job) {
 

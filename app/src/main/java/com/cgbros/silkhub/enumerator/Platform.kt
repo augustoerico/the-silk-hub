@@ -1,4 +1,6 @@
-package com.cgbros.silkhub
+package com.cgbros.silkhub.enumerator
+
+import com.cgbros.silkhub.R
 
 enum class Platform {
 

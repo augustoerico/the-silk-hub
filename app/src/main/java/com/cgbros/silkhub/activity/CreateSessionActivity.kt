@@ -1,4 +1,4 @@
-package com.cgbros.silkhub
+package com.cgbros.silkhub.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,9 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import com.cgbros.silkhub.enumerator.Job
+import com.cgbros.silkhub.R
+import com.cgbros.silkhub.model.Session
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_create_session.*

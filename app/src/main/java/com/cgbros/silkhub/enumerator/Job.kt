@@ -1,4 +1,4 @@
-package com.cgbros.silkhub
+package com.cgbros.silkhub.enumerator
 
 enum class Job {
 

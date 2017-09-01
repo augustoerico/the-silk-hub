@@ -1,9 +1,10 @@
-package com.cgbros.silkhub
+package com.cgbros.silkhub.activity
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.cgbros.silkhub.R
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 

@@ -1,7 +1,7 @@
 package com.cgbros.silkhub.model
 
-import com.cgbros.silkhub.Platform
-import com.cgbros.silkhub.PlayerAlignment
+import com.cgbros.silkhub.enumerator.Platform
+import com.cgbros.silkhub.enumerator.PlayerAlignment
 
 class Profile(var uid: String,
               var nickname: String,

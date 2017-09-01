@@ -1,4 +1,4 @@
-package com.cgbros.silkhub
+package com.cgbros.silkhub.singleton
 
 import com.cgbros.silkhub.model.Profile
 import com.google.android.gms.tasks.Task
@@ -13,7 +13,7 @@ object LoggedInProfile {
     var instance: Profile = Profile()
 
     private val userUid = FirebaseAuth.getInstance().currentUser!!.uid
-    private val profileRef = FirebaseDatabase.getInstance().reference.child("users/$userUid/profile")
+    private val profileRef = FirebaseDatabase.getInstance().reference.child("users/${userUid}/profile")
 
     init {
         profileRef.addValueEventListener(

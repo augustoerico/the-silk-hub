@@ -1,10 +1,11 @@
-package com.cgbros.silkhub
+package com.cgbros.silkhub.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
+import com.cgbros.silkhub.R
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
