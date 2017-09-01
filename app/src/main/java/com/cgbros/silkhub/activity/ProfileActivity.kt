@@ -2,23 +2,19 @@ package com.cgbros.silkhub.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.widget.RadioGroup
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
+import com.cgbros.silkhub.R
 import com.cgbros.silkhub.enumerator.Platform
 import com.cgbros.silkhub.enumerator.PlayerAlignment
-import com.cgbros.silkhub.R
 import com.cgbros.silkhub.model.Profile
 import com.cgbros.silkhub.model.User
 import com.cgbros.silkhub.singleton.LoggedInUser
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_profile.*
 
-class ProfileActivity : AppCompatActivity() {
-
-    private val mAuth = FirebaseAuth.getInstance()
+class ProfileActivity : AuthenticatedActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,13 +23,6 @@ class ProfileActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-
-        val currentUser = mAuth.currentUser
-        if (currentUser == null) {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            return
-        }
 
         LoggedInUser
                 .getInstance { user: User ->
@@ -60,7 +49,7 @@ class ProfileActivity : AppCompatActivity() {
     private fun save() {
 
         val profile = Profile(
-                uid = mAuth.currentUser!!.uid,
+                uid = currentUser!!.uid,
                 nickname = profile_nickname.text.toString(),
                 platform = Platform.fromId(profile_platform.checkedRadioButtonId).toString(),
                 alignment = PlayerAlignment.fromValues(
@@ -84,7 +73,4 @@ class ProfileActivity : AppCompatActivity() {
                 }
     }
 
-    private fun load() {
-
-    }
 }
