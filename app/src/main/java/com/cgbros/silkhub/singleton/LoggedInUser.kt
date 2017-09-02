@@ -20,7 +20,6 @@ object LoggedInUser {
         if (instance.isEmpty()) {
 
             userRef.child("profile").addValueEventListener(object : ValueEventListener {
-
                 override fun onCancelled(error: DatabaseError?) {
                     throw error!!.toException()
                 }
@@ -29,11 +28,9 @@ object LoggedInUser {
                     instance.profile = data?.getValue(Profile::class.java) ?: Profile()
                     callback(instance)
                 }
-
             })
 
-            userRef.child("current_session").addValueEventListener(object : ValueEventListener {
-
+            userRef.child("currentSession").addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(error: DatabaseError?) {
                     throw error!!.toException()
                 }
@@ -42,7 +39,6 @@ object LoggedInUser {
                     instance.currentSession = data?.getValue(String::class.java) ?: ""
                     callback(instance)
                 }
-
             })
 
         } else {

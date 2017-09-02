@@ -2,7 +2,6 @@ package com.cgbros.silkhub.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -10,17 +9,25 @@ import android.widget.Toast
 import com.cgbros.silkhub.R
 import com.cgbros.silkhub.enumerator.Job
 import com.cgbros.silkhub.model.Session
-import com.cgbros.silkhub.singleton.LoggedInProfile
+import com.cgbros.silkhub.model.User
+import com.cgbros.silkhub.singleton.LoggedInUser
+import com.cgbros.silkhub.singleton.OpenSessions
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_create_session.*
 
-class CreateSessionActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+class CreateSessionActivity : AuthenticatedActivity(), AdapterView.OnItemSelectedListener {
 
-    private var session: Session = Session(Job.FLEECA_JOB, LoggedInProfile.instance, arrayListOf())
+    private val that = this
+
+    private var session: Session = Session()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_session)
+
+        LoggedInUser.getInstance { user: User ->
+            session = Session(job = Job.FLEECA_JOB, host = user.profile, crew = arrayListOf())
+        }
     }
 
     override fun onStart() {
@@ -34,31 +41,24 @@ class CreateSessionActivity : AppCompatActivity(), AdapterView.OnItemSelectedLis
         create_session_create.setOnClickListener { createSession() }
     }
 
-    override fun onNothingSelected(parent: AdapterView<*>?) {
-        return
-    }
+    override fun onNothingSelected(parent: AdapterView<*>?) { }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         session.job = Job.fromPosition(position)
     }
 
     private fun discard() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        return
+        startActivity(Intent(this, MainActivity::class.java))
     }
 
     private fun createSession() {
-        FirebaseDatabase.getInstance().getReference("open_sessions")
-                .push()
-                .setValue(session.toStringMap())
 
-        Toast.makeText(this, "Session created", Toast.LENGTH_SHORT).show()
+        OpenSessions.get().push().setValue(session.toStringMap(), { _, snapshot ->
+            LoggedInUser.getInstance { user: User -> user.currentSession = snapshot.key }.publish()
+            Toast.makeText(that, "Session created", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(that, MainActivity::class.java))
+        })
 
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-
-        return
     }
 
 }

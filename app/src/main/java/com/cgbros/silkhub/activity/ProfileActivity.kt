@@ -64,11 +64,12 @@ class ProfileActivity : AuthenticatedActivity() {
                 }
                 .publish()
                 .addOnCompleteListener {
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
+                    startActivity(Intent(this, MainActivity::class.java))
+                    // TODO I18N
                     Toast.makeText(this, "Saved!", Toast.LENGTH_SHORT).show()
                 }
                 .addOnFailureListener {
+                    // TODO I18N
                     Toast.makeText(this, "Ops, something is wrong", Toast.LENGTH_SHORT).show()
                 }
     }
