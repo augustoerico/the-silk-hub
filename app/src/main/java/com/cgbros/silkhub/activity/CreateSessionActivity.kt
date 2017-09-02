@@ -12,7 +12,6 @@ import com.cgbros.silkhub.model.Session
 import com.cgbros.silkhub.model.User
 import com.cgbros.silkhub.singleton.LoggedInUser
 import com.cgbros.silkhub.singleton.OpenSessions
-import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_create_session.*
 
 class CreateSessionActivity : AuthenticatedActivity(), AdapterView.OnItemSelectedListener {
