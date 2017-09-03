@@ -34,4 +34,8 @@ class Profile(var uid: String,
     )
 
     fun isEmpty() = uid.isEmpty() && nickname.isEmpty()
+
+    override fun toString(): String {
+        return "{uid=$uid,nickname=$nickname,platform=$platform,alignment=$alignment}"
+    }
 }
