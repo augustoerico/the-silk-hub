@@ -1,14 +1,17 @@
 package com.cgbros.silkhub.model
 
 import com.cgbros.silkhub.enumerator.Job
+import java.util.*
 
-class Session(var job: Job, var host: Profile, var crew: List<Profile>) {
+class Session(var job: Job, var crew: Map<String, Profile>) {
 
-    constructor() : this(job = Job.FLEECA_JOB, host = Profile(), crew = arrayListOf())
+    constructor() : this(
+            job = Job.FLEECA_JOB,
+            crew = mapOf((UUID.randomUUID().toString()) to Profile())
+    )
 
     fun toStringMap() = mapOf(
-            "host" to host.toStringMap(),
-            "crew" to crew.map { it.uid to it.toStringMap() }.toMap(),
+            "crew" to crew.toString(),
             "job" to job.toString()
     )
 

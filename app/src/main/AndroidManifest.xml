@@ -44,7 +44,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.ProfileActivity" />
-        <activity android:name=".activity.CreateSessionActivity"></activity>
+        <activity android:name=".activity.CreateSessionActivity" />
+        <activity android:name=".activity.CurrentSessionActivity" />
     </application>
 
 </manifest>

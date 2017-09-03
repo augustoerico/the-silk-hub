@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 class LoginActivity : AppCompatActivity() {
 
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-    private val openSessionsRef: DatabaseReference = database.getReference("open_sessions")
+    private val openSessionsRef: DatabaseReference = database.getReference("openSessions")
 
     private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private val mCallbackManager: CallbackManager = CallbackManager.Factory.create()

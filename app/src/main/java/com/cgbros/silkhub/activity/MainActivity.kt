@@ -36,19 +36,16 @@ class MainActivity : AuthenticatedActivity() {
 
     private fun currentSession() {
         Log.d("HOME", "currentSession")
+        startActivity(Intent(this, CurrentSessionActivity::class.java))
     }
 
     private fun profile() {
         Log.d("HOME", "profile")
-        val intent = Intent(this, ProfileActivity::class.java)
-        startActivity(intent)
-        return
+        startActivity(Intent(this, ProfileActivity::class.java))
     }
 
     private fun createSession() {
         Log.d("HOME", "createSession")
-        val intent = Intent(this, CreateSessionActivity::class.java)
-        startActivity(intent)
-        return
+        startActivity(Intent(this, CreateSessionActivity::class.java))
     }
 }

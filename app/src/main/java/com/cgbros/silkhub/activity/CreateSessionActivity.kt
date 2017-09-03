@@ -25,7 +25,10 @@ class CreateSessionActivity : AuthenticatedActivity(), AdapterView.OnItemSelecte
         setContentView(R.layout.activity_create_session)
 
         LoggedInUser.getInstance { user: User ->
-            session = Session(job = Job.FLEECA_JOB, host = user.profile, crew = arrayListOf())
+            session = Session(
+                    job = Job.FLEECA_JOB,
+                    crew = mapOf(user.profile.uid to user.profile)
+            )
         }
     }
 
