@@ -26,6 +26,14 @@ class Profile(var uid: String,
             alignment = PlayerAlignment.TRUE_NEUTRAL
     )
 
+    constructor(map: Map<String, String>) : this(
+            uid = map["uid"] ?: "",
+            nickname = map["nickname"] ?: "",
+            platform = enumValueOf<Platform>(map["platform"] ?: Platform.PC.toString()),
+            alignment = enumValueOf<PlayerAlignment>(map["alignment"] ?:
+                    PlayerAlignment.TRUE_NEUTRAL.toString())
+    )
+
     fun toStringMap() = mapOf(
             "uid" to uid,
             "nickname" to nickname,

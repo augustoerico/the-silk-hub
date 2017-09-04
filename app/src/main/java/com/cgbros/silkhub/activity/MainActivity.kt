@@ -31,6 +31,7 @@ class MainActivity : AuthenticatedActivity() {
                     main_current_session_button.setOnClickListener { currentSession() }
                     main_profile_button.setOnClickListener { profile() }
                     main_create_session_button.setOnClickListener { createSession() }
+                    main_search_session_button.setOnClickListener { searchSession() }
                 }
     }
 
@@ -47,5 +48,10 @@ class MainActivity : AuthenticatedActivity() {
     private fun createSession() {
         Log.d("HOME", "createSession")
         startActivity(Intent(this, CreateSessionActivity::class.java))
+    }
+
+    private fun searchSession() {
+        Log.d("Home", "searchSession")
+        startActivity(Intent(this, SearchSessionActivity::class.java))
     }
 }
