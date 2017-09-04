@@ -17,14 +17,18 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_current_session.*
-import kotlinx.android.synthetic.main.current_session_crew_member.*
+import kotlinx.android.synthetic.main.current_session_crew_member.view.*
 
 class CurrentSessionActivity : AppCompatActivity() {
 
     private val that = this
 
     private var session: Session? = Session()
-    private var crew = listOf<Profile>()
+    private var crew = listOf(
+            Profile(nickname = "OneHere", alignment = "TRUE_NEUTRAL"),
+            Profile(nickname = "TwoHere", alignment = "LAWFUL_GOOD"),
+            Profile(nickname = "ThreeHere", alignment = "CHAOTIC_EVIL")
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,27 +51,32 @@ class CurrentSessionActivity : AppCompatActivity() {
         override fun getView(position: Int, convertView: View?, viewGroup: ViewGroup?): View {
 
             var view = convertView
-            var holder = Holder()
+            val holder: Holder?
+
+            val profile: Profile = crew[position]
+
+            Log.d("CurrentSession", "asdfasfasdf: $profile")
 
             if (view == null) {
-                view = that.layoutInflater.inflate(
+                view = layoutInflater.inflate(
                         R.layout.current_session_crew_member, viewGroup, false
                 )
+
+                holder = Holder(view)
                 view.tag = holder
             } else {
                 holder = view.tag as Holder
             }
 
-            val profile: Profile = crew[position]
             holder.nicknameTextView.text = profile.nickname
             holder.alignmentTextView.text = profile.alignment.toString()
 
             return view!!
         }
 
-        inner class Holder {
-            var nicknameTextView = current_session_crew_member_nickname
-            var alignmentTextView = current_session_crew_member_alignment
+        inner class Holder(view: View) {
+            var nicknameTextView = view.current_session_crew_member_nickname
+            var alignmentTextView = view.current_session_crew_member_alignment
         }
 
     }
@@ -85,7 +94,7 @@ class CurrentSessionActivity : AppCompatActivity() {
 
             Log.d("CurrentSession", "AEHOOO: ${session.toStringMap()}") // TODO remove-me
 
-            crew = session.crew.map { it.value }
+//            crew = session.crew.map { it.value }
 
             that.session = session
             current_session_title.text = session.job.toString()

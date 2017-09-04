@@ -23,7 +23,7 @@ class MainActivity : AuthenticatedActivity() {
                 .getInstance { user: User ->
                     if (user.currentSession != "") {
                         Toast.makeText(
-                                this, "IT HAS A SESSION", Toast.LENGTH_LONG
+                                this, "IT HAS A SESSION", Toast.LENGTH_SHORT
                         ).show()
                         // TODO disable create new session or join another session
                     }
