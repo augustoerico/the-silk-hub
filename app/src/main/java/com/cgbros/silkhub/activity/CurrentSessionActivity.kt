@@ -24,16 +24,10 @@ class CurrentSessionActivity : AppCompatActivity() {
     private val that = this
 
     private var session: Session? = Session()
-    private var crew = listOf(
-            Profile(nickname = "OneHere", alignment = "TRUE_NEUTRAL"),
-            Profile(nickname = "TwoHere", alignment = "LAWFUL_GOOD"),
-            Profile(nickname = "ThreeHere", alignment = "CHAOTIC_EVIL")
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_current_session)
-        current_session_crew.adapter = CurrentSessionCrewAdapter(crew)
     }
 
     override fun onStart() {
@@ -54,8 +48,6 @@ class CurrentSessionActivity : AppCompatActivity() {
             val holder: Holder?
 
             val profile: Profile = crew[position]
-
-            Log.d("CurrentSession", "asdfasfasdf: $profile")
 
             if (view == null) {
                 view = layoutInflater.inflate(
@@ -92,9 +84,8 @@ class CurrentSessionActivity : AppCompatActivity() {
             Log.d("CurrentSession", "Trigger onDataChange")
             val session = snapshot!!.getValue(Session::class.java)!!
 
-            Log.d("CurrentSession", "AEHOOO: ${session.toStringMap()}") // TODO remove-me
-
-//            crew = session.crew.map { it.value }
+            val crew = session.crew.map { it.value }
+            current_session_crew.adapter = CurrentSessionCrewAdapter(crew)
 
             that.session = session
             current_session_title.text = session.job.toString()
