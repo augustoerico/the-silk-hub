@@ -8,12 +8,10 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.cgbros.silkhub.R
-import com.cgbros.silkhub.model.Profile
 import com.cgbros.silkhub.model.Session
 import com.cgbros.silkhub.singleton.OpenSessions
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.GenericTypeIndicator
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_search_session.*
 import kotlinx.android.synthetic.main.search_session_session.view.*
