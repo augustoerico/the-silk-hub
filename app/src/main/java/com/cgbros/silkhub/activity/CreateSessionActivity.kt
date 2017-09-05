@@ -26,6 +26,7 @@ class CreateSessionActivity : AuthenticatedActivity(), AdapterView.OnItemSelecte
 
         LoggedInUser.getInstance { user: User ->
             session = Session(
+                    uid = "",
                     job = Job.FLEECA_JOB,
                     crew = mapOf(user.profile.uid to user.profile)
             )
