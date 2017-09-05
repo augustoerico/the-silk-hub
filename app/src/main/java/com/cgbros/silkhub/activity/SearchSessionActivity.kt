@@ -60,8 +60,6 @@ class SearchSessionActivity : AppCompatActivity() {
             Log.d("Search", "onCardSwiped triggered")
             if (quadrant == Quadrant.BottomRight || quadrant == Quadrant.TopRight) {
                 Log.d("Search", "Join current job")
-                Log.d("Search", "top: ${search_session_cards.top}, topIndex: ${search_session_cards.topIndex}")
-                Log.d("Search", "sessions: ${sessions}")
                 val session = sessions[search_session_cards.topIndex - 1]
                 Log.d("Search", "Join: $session")
 
