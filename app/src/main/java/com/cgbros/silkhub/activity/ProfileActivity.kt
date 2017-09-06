@@ -51,11 +51,11 @@ class ProfileActivity : AuthenticatedActivity() {
         val profile = Profile(
                 uid = currentUser!!.uid,
                 nickname = profile_nickname.text.toString(),
-                platform = Platform.fromId(profile_platform.checkedRadioButtonId).toString(),
+                platform = Platform.fromId(profile_platform.checkedRadioButtonId),
                 alignment = PlayerAlignment.fromValues(
                         profile_law_chaos.progress,
                         profile_good_evil.progress
-                ).toString()
+                )
         )
 
         LoggedInUser

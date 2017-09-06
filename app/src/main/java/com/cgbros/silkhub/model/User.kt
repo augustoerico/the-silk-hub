@@ -5,7 +5,7 @@ class User(var profile: Profile, var currentSession: String) {
     constructor() : this(profile = Profile(), currentSession = "")
 
     fun toStringMap() = mapOf(
-            "profile" to profile.toStringMap(),
+            "profile" to profile,
             "currentSession" to currentSession
     )
 
