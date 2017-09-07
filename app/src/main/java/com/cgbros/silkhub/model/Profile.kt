@@ -17,7 +17,7 @@ data class Profile(
             alignment = PlayerAlignment.EMPTY
     )
 
-    constructor(map: Map<String, Any>) : this(
+    constructor(map: Map<String, Any?>) : this(
             uid = map["uid"] as String,
             nickname = map["nickname"] as String,
             platform = platform(map["platform"]),

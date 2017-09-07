@@ -60,7 +60,7 @@ class ProfileActivity : AuthenticatedActivity() {
 
         LoggedInUser
                 .setInstance { user: User ->
-                    user.profile = profile
+                    user.copy(profile = profile)
                 }
                 .publish()
                 .addOnCompleteListener {

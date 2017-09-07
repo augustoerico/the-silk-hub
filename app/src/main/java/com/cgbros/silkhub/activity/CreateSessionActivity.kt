@@ -57,7 +57,11 @@ class CreateSessionActivity : AuthenticatedActivity(), AdapterView.OnItemSelecte
     private fun createSession() {
 
         OpenSessions.get().push().setValue(session.toStringMap(), { _, snapshot ->
-            LoggedInUser.getInstance { user: User -> user.currentSession = snapshot.key }.publish()
+            LoggedInUser
+                    .setInstance({ user: User ->
+                        user.copy(currentSession = snapshot.key)
+                    })
+                    .publish()
             Toast.makeText(that, "Session created", Toast.LENGTH_SHORT).show()
             startActivity(Intent(that, MainActivity::class.java))
         })
