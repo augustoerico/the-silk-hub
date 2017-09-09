@@ -13,6 +13,7 @@ import com.cgbros.silkhub.model.User
 import com.cgbros.silkhub.singleton.LoggedInUser
 import com.cgbros.silkhub.singleton.OpenSessions
 import kotlinx.android.synthetic.main.activity_create_session.*
+import java.util.*
 
 class CreateSessionActivity : AuthenticatedActivity(), AdapterView.OnItemSelectedListener {
 
@@ -26,8 +27,8 @@ class CreateSessionActivity : AuthenticatedActivity(), AdapterView.OnItemSelecte
 
         LoggedInUser.getInstance { user: User ->
             session = Session(
-                    id = "",
-                    job = Job.FLEECA_JOB,
+                    id = UUID.randomUUID().toString(),
+                    job = Job.EMPTY,
                     crew = mapOf(user.profile.uid to user.profile)
             )
         }
@@ -59,7 +60,7 @@ class CreateSessionActivity : AuthenticatedActivity(), AdapterView.OnItemSelecte
         OpenSessions.get().push().setValue(session.toMap(), { _, snapshot ->
             LoggedInUser
                     .setInstance({ user: User ->
-                        user.copy(currentSession = snapshot.key)
+                        user.copy(currentSession = session.id)
                     })
                     .publish()
             Toast.makeText(that, "Session created", Toast.LENGTH_SHORT).show()
