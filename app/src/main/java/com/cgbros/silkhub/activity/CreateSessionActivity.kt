@@ -57,7 +57,7 @@ class CreateSessionActivity : AuthenticatedActivity(), AdapterView.OnItemSelecte
 
     private fun createSession() {
 
-        OpenSessions.get().push().setValue(session.toMap(), { _, snapshot ->
+        OpenSessions.get().updateChildren(mapOf(session.id to session.toMap()), { _, _ ->
             LoggedInUser
                     .setInstance({ user: User ->
                         user.copy(currentSession = session.id)
