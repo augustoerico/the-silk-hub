@@ -34,8 +34,10 @@ class CurrentSessionActivity : AppCompatActivity() {
         super.onStart()
 
         LoggedInUser.getInstance { user: User ->
-            OpenSessions.get().child(user.currentSession)
-                    .addValueEventListener(ValueEventListenerImpl())
+            if (!user.currentSession.isNullOrEmpty()) {
+                OpenSessions.get().child(user.currentSession)
+                        .addValueEventListener(ValueEventListenerImpl())
+            }
         }
     }
 
