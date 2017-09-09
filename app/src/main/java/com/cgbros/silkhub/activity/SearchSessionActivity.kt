@@ -43,8 +43,9 @@ class SearchSessionActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot?) {
                 Log.d("SearchSession", "Trigger onDataChange")
 
-                sessions = (snapshot!!.value!! as Map<*, *>)
-                        .map { Session(it.key as String, it.value as Map<String, Any>) }.toList()
+                sessions = (snapshot!!.value!! as Map<String, *>).map {
+                    Session(it.value as Map<String, *>)
+                }
 
                 search_session_cards.setAdapter(SearchSessionAdapter(sessions))
                 search_session_cards.setCardEventListener(CardEventListenerImpl())
@@ -64,7 +65,7 @@ class SearchSessionActivity : AppCompatActivity() {
                 Log.d("Search", "Join: $session")
 
                 LoggedInUser.getInstance { user: User ->
-                    OpenSessions.get().child("${session.uid}/crew").updateChildren(mapOf(
+                    OpenSessions.get().child("${session.id}/crew").updateChildren(mapOf(
                             user.profile.uid to user.profile
                     ))
                 }

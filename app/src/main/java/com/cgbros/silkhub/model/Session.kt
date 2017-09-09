@@ -1,32 +1,59 @@
 package com.cgbros.silkhub.model
 
 import com.cgbros.silkhub.enumerator.Job
-import java.util.*
 
-class Session(var uid: String, var job: Job, var crew: Map<String, Profile>) {
+data class Session(
+        val id: String,
+        val job: Job,
+        val crew: Map<String, Profile>
+) {
 
     constructor() : this(
-            uid = "",
-            job = Job.FLEECA_JOB,
-            crew = mapOf((UUID.randomUUID().toString()) to Profile())
+            id = "",
+            job = Job.EMPTY,
+            crew = mapOf()
     )
 
-    constructor(uid: String, map: Map<String, Any>) : this(
-            uid = uid,
-            job = enumValueOf<Job>((map["job"] as String)),
-            crew = (map["crew"] as Map<String, Any>).map {
-                it.key to Profile(it.value as Map<String, String>)
-            }.toMap()
+    constructor(map: Map<String, Any?>) : this (
+            id = (map["id"] ?: "") as String,
+            job = job(map["job"]),
+            crew = crew(map["crew"])
     )
 
-    fun toStringMap() = mapOf(
-            "uid" to uid,
-            "crew" to crew.toString(),
-            "job" to job.toString()
-    )
+    companion object {
+        fun job(job: Any?): Job {
+            return if (job != null)
+                when (job) {
+                    is Job -> job
+                    is String -> if (job.isEmpty())
+                        Job.EMPTY
+                    else
+                        enumValueOf(job.toUpperCase())
+                    else -> throw IllegalArgumentException("Session.job=$job not allowed")
+                } else Job.EMPTY
+        }
 
-    override fun toString(): String {
-        return "{uid=$uid,job=$job,crew=$crew}"
+        fun crew(crew: Any?): Map<String, Profile> {
+            return if (crew == null) {
+                mapOf()
+            } else {
+                when (crew) {
+                    is Map<*, *> -> crew.map {
+                        (it.key as String) to Profile(it.value as Map<String, Any?>)
+                    }.toMap()
+                    else -> throw IllegalArgumentException("Session.crew=$crew not allowed")
+                }
+            }
+
+        }
     }
+
+    fun isEmpty() = id.isEmpty() && crew.isEmpty() && job.equals(Job.EMPTY)
+
+    fun toMap() = mapOf(
+            "id" to id,
+            "crew" to crew.map { it.key to it.value.toMap() }.toMap(),
+            "job" to job
+    )
 
 }

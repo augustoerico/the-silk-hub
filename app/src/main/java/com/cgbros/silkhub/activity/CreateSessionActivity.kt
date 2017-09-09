@@ -26,7 +26,7 @@ class CreateSessionActivity : AuthenticatedActivity(), AdapterView.OnItemSelecte
 
         LoggedInUser.getInstance { user: User ->
             session = Session(
-                    uid = "",
+                    id = "",
                     job = Job.FLEECA_JOB,
                     crew = mapOf(user.profile.uid to user.profile)
             )
@@ -47,7 +47,7 @@ class CreateSessionActivity : AuthenticatedActivity(), AdapterView.OnItemSelecte
     override fun onNothingSelected(parent: AdapterView<*>?) { }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        session.job = Job.fromPosition(position)
+        session = session.copy(job = Job.fromPosition(position))
     }
 
     private fun discard() {
@@ -56,7 +56,7 @@ class CreateSessionActivity : AuthenticatedActivity(), AdapterView.OnItemSelecte
 
     private fun createSession() {
 
-        OpenSessions.get().push().setValue(session.toStringMap(), { _, snapshot ->
+        OpenSessions.get().push().setValue(session.toMap(), { _, snapshot ->
             LoggedInUser
                     .setInstance({ user: User ->
                         user.copy(currentSession = snapshot.key)
