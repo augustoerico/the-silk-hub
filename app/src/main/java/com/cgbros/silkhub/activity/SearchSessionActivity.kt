@@ -65,7 +65,7 @@ class SearchSessionActivity : AppCompatActivity() {
                 Log.d("Search", "Join: $session")
 
                 LoggedInUser.getInstance { user: User ->
-                    OpenSessions.get().child("${session.id}/crew").updateChildren(mapOf(
+                    OpenSessions.get().child("${session.id}/candidates").updateChildren(mapOf(
                             user.profile.uid to user.profile
                     ))
                 }
