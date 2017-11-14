@@ -4,10 +4,8 @@ import android.widget.TextView
 import com.cgbros.silkhub.R
 import com.cgbros.silkhub.activity.LoginActivity
 import com.facebook.FacebookSdk
-import com.github.kittinunf.fuel.httpGet
 import com.google.firebase.FirebaseApp
 import org.junit.After
-import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
