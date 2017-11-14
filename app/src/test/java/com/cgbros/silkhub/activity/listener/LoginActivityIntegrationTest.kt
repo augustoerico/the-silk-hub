@@ -15,7 +15,7 @@ import org.robolectric.RuntimeEnvironment
 import org.mockito.Mockito.`when` as whenCalled
 
 @RunWith(RobolectricTestRunner::class)
-class LoginActivityUnitTest {
+class LoginActivityIntegrationTest {
 
     @Before
     fun setup() {
