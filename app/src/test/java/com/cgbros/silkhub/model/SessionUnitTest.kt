@@ -31,7 +31,7 @@ class SessionUnitTest {
         )
         val sessionStringMap = mapOf(
                 "id" to "123",
-                "job" to Job.HUMANE_LABS_RAID.name,
+                "job" to Job.HEIST_MISSIONS.name,
                 "crew" to mapOf(
                         "abc" to profileStringMap
                 )
@@ -40,7 +40,7 @@ class SessionUnitTest {
 
         assertEquals(Session(
                 id = "123",
-                job = Job.HUMANE_LABS_RAID,
+                job = Job.HEIST_MISSIONS,
                 crew = mapOf(
                         "abc" to Profile(profileStringMap)
                 )

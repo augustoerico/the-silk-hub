@@ -7,6 +7,7 @@ data class User(val profile: Profile, val currentSession: String) {
             currentSession = ""
     )
 
+    @Suppress("UNCHECKED_CAST")
     constructor(map: Map<String, Any?>) : this(
             profile = Profile(map["profile"] as Map<String, Any?>),
             currentSession = map["currentSession"] as String

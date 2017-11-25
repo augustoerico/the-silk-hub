@@ -43,6 +43,7 @@ class SearchSessionActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot?) {
                 Log.d("SearchSession", "Trigger onDataChange")
 
+                @Suppress("UNCHECKED_CAST")
                 sessions = (snapshot!!.value!! as Map<String, *>).map {
                     Session(it.value as Map<String, *>)
                 }

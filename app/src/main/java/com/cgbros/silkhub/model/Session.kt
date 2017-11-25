@@ -39,6 +39,7 @@ data class Session(
             } else {
                 when (crew) {
                     is Map<*, *> -> crew.map {
+                        @Suppress("UNCHECKED_CAST")
                         (it.key as String) to Profile(it.value as Map<String, Any?>)
                     }.toMap()
                     else -> throw IllegalArgumentException("Session.crew=$crew not allowed")

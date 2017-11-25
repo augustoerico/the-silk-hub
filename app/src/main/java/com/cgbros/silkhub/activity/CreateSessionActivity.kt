@@ -38,7 +38,9 @@ class CreateSessionActivity : AuthenticatedActivity(), AdapterView.OnItemSelecte
         super.onStart()
 
         create_session_jobs.adapter = ArrayAdapter(this,
-                android.R.layout.simple_spinner_dropdown_item, Job.values().map { it.toString() })
+                android.R.layout.simple_spinner_dropdown_item,
+                Job.values().map { it.toString() }
+        )
         create_session_jobs.onItemSelectedListener = this
 
         create_session_discard.setOnClickListener { discard() }
