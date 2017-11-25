@@ -25,7 +25,9 @@ object LoggedInUser {
                 }
 
                 override fun onDataChange(data: DataSnapshot?) {
-                    instance.profile = data?.getValue(Profile::class.java) ?: Profile()
+                    instance = instance.copy(
+                            profile = data?.getValue(Profile::class.java) ?: Profile()
+                    )
                     callback(instance)
                 }
             })
@@ -36,7 +38,9 @@ object LoggedInUser {
                 }
 
                 override fun onDataChange(data: DataSnapshot?) {
-                    instance.currentSession = data?.getValue(String::class.java) ?: ""
+                    instance = instance.copy(
+                            currentSession = data?.getValue(String::class.java) ?: ""
+                    )
                     callback(instance)
                 }
             })
@@ -47,11 +51,11 @@ object LoggedInUser {
         return this
     }
 
-    fun setInstance(callback: (user: User) -> Unit): LoggedInUser {
-        callback(instance)
+    fun setInstance(callback: (user: User) -> User): LoggedInUser {
+        instance = callback(instance)
         return this
     }
 
-    fun publish(): Task<Void> = userRef.updateChildren(instance.toStringMap())
+    fun publish(): Task<Void> = userRef.updateChildren(instance.toMap())
 
 }

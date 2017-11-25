@@ -3,47 +3,62 @@ package com.cgbros.silkhub.model
 import com.cgbros.silkhub.enumerator.Platform
 import com.cgbros.silkhub.enumerator.PlayerAlignment
 
-class Profile(var uid: String,
-              var nickname: String,
-              var platform: Platform,
-              var alignment: PlayerAlignment) {
-
-    constructor(
-            uid: String = "",
-            nickname: String = "",
-            platform: String = Platform.PC.toString(),
-            alignment: String = PlayerAlignment.TRUE_NEUTRAL.toString()) : this(
-            uid = uid,
-            nickname = nickname,
-            platform = enumValueOf<Platform>(platform),
-            alignment = enumValueOf<PlayerAlignment>(alignment)
-    )
+data class Profile(
+        val uid: String,
+        val nickname: String,
+        val platform: Platform,
+        val alignment: PlayerAlignment
+) {
 
     constructor() : this(
             uid = "",
             nickname = "",
-            platform = Platform.PC,
-            alignment = PlayerAlignment.TRUE_NEUTRAL
+            platform = Platform.EMPTY,
+            alignment = PlayerAlignment.EMPTY
     )
 
-    constructor(map: Map<String, String>) : this(
-            uid = map["uid"] ?: "",
-            nickname = map["nickname"] ?: "",
-            platform = enumValueOf<Platform>(map["platform"] ?: Platform.PC.toString()),
-            alignment = enumValueOf<PlayerAlignment>(map["alignment"] ?:
-                    PlayerAlignment.TRUE_NEUTRAL.toString())
+    constructor(map: Map<String, Any?>) : this(
+            uid = map["uid"] as String,
+            nickname = map["nickname"] as String,
+            platform = platform(map["platform"]),
+            alignment = alignment(map["alignment"])
     )
 
-    fun toStringMap() = mapOf(
+    fun isEmpty() = uid.isEmpty() && nickname.isEmpty() && platform == Platform.EMPTY &&
+            alignment == PlayerAlignment.EMPTY
+
+    fun toMap() = mapOf(
             "uid" to uid,
             "nickname" to nickname,
-            "platform" to platform.toString(),
-            "alignment" to alignment.toString()
+            "platform" to platform,
+            "alignment" to alignment
     )
 
-    fun isEmpty() = uid.isEmpty() && nickname.isEmpty()
+    companion object {
 
-    override fun toString(): String {
-        return toStringMap().toString()
+        fun platform(platform: Any?): Platform {
+            return if (platform != null)
+                when (platform) {
+                    is Platform -> platform
+                    is String -> if (platform.isEmpty())
+                        Platform.EMPTY
+                    else
+                        enumValueOf(platform.toUpperCase())
+                    else -> throw IllegalArgumentException("Profile.platform=$platform not allowed")
+                } else Platform.EMPTY
+        }
+
+        fun alignment(alignment: Any?): PlayerAlignment {
+            return if (alignment != null)
+                when (alignment) {
+                    is PlayerAlignment -> alignment
+                    is String -> if (alignment.isEmpty())
+                        PlayerAlignment.EMPTY
+                    else
+                        enumValueOf(alignment.toUpperCase())
+                    else -> throw IllegalArgumentException("Profile.alignment=$alignment not allowed")
+                } else PlayerAlignment.EMPTY
+        }
+
     }
 }

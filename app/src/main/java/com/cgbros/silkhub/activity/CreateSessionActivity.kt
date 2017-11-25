@@ -13,6 +13,7 @@ import com.cgbros.silkhub.model.User
 import com.cgbros.silkhub.singleton.LoggedInUser
 import com.cgbros.silkhub.singleton.OpenSessions
 import kotlinx.android.synthetic.main.activity_create_session.*
+import java.util.*
 
 class CreateSessionActivity : AuthenticatedActivity(), AdapterView.OnItemSelectedListener {
 
@@ -26,8 +27,8 @@ class CreateSessionActivity : AuthenticatedActivity(), AdapterView.OnItemSelecte
 
         LoggedInUser.getInstance { user: User ->
             session = Session(
-                    uid = "",
-                    job = Job.FLEECA_JOB,
+                    id = UUID.randomUUID().toString(),
+                    job = Job.EMPTY,
                     crew = mapOf(user.profile.uid to user.profile)
             )
         }
@@ -47,7 +48,7 @@ class CreateSessionActivity : AuthenticatedActivity(), AdapterView.OnItemSelecte
     override fun onNothingSelected(parent: AdapterView<*>?) { }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        session.job = Job.fromPosition(position)
+        session = session.copy(job = Job.fromPosition(position))
     }
 
     private fun discard() {
@@ -56,8 +57,12 @@ class CreateSessionActivity : AuthenticatedActivity(), AdapterView.OnItemSelecte
 
     private fun createSession() {
 
-        OpenSessions.get().push().setValue(session.toStringMap(), { _, snapshot ->
-            LoggedInUser.getInstance { user: User -> user.currentSession = snapshot.key }.publish()
+        OpenSessions.get().updateChildren(mapOf(session.id to session.toMap()), { _, _ ->
+            LoggedInUser
+                    .setInstance({ user: User ->
+                        user.copy(currentSession = session.id)
+                    })
+                    .publish()
             Toast.makeText(that, "Session created", Toast.LENGTH_SHORT).show()
             startActivity(Intent(that, MainActivity::class.java))
         })

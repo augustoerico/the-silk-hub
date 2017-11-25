@@ -6,7 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.cgbros.silkhub"
         minSdkVersion 16
@@ -21,6 +21,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+            returnDefaultValues = true
+        }
+    }
+}
+
+repositories {
+    jcenter()
 }
 
 dependencies {
@@ -38,6 +48,9 @@ dependencies {
     implementation 'com.android.support:customtabs:26.0.1'
     implementation 'com.yuyakaido.android:card-stack-view:1.0.0-beta3'
     testImplementation 'junit:junit:4.12'
+    testImplementation 'org.robolectric:robolectric:3.4.2'
+    testImplementation 'org.mockito:mockito-core:2.+'
+    testImplementation 'com.github.kittinunf.fuel:fuel:1.11.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.0'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.0'
 }
