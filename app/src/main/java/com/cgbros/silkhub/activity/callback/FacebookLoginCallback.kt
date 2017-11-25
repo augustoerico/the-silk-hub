@@ -8,6 +8,8 @@ import com.facebook.AccessToken
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginResult
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 
@@ -37,28 +39,29 @@ class FacebookLoginCallback(val activity: Activity) : FacebookCallback<LoginResu
         if (token.isNotEmpty()) {
             val credentials = FacebookAuthProvider.getCredential(token)
             mAuth.signInWithCredential(credentials)
-                    .addOnCompleteListener { authResult ->
-                        Log.d("login", "On complete listener")
-                        if (authResult.isSuccessful) {
-                            Log.d("login", "... is successful")
-                            val result = authResult.result
-                            val user = result.user
-
-                            Log.d("login", "user: $user")
-
-                            val intent = Intent(activity, MainActivity::class.java)
-                            activity.startActivity(intent)
-                        } else {
-                            Log.e("login", "Error on complete listener",
-                                    authResult.exception)
-                            // TODO send user some feedback
-                        }
-                    }
+                    .addOnCompleteListener { authResult -> handleAuthResult(authResult) }
         } else {
             val message = "Empty access token"
             Log.e("login", message, Exception(message))
             // TODO send user some feedback
         }
 
+    }
+
+    private fun handleAuthResult(authResult: Task<AuthResult>) {
+        if (authResult.isSuccessful) {
+            Log.d("login", "... is successful")
+            val result = authResult.result
+            val user = result.user
+
+            Log.d("login", "user: $user")
+
+            val intent = Intent(activity, MainActivity::class.java)
+            activity.startActivity(intent)
+        } else {
+            Log.e("login", "Error on complete listener",
+                    authResult.exception)
+            // TODO send user some feedback
+        }
     }
 }
