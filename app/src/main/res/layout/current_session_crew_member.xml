@@ -17,6 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_margin="12dp"
         >
 
         <TextView
@@ -24,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:text="Player nickname placeholder"
+            android:text="Nickname"
             />
 
         <TextView
@@ -32,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            android:text="Player alignment placeholder"/>
+            android:text="Alignment placeholder"/>
 
     </LinearLayout>
 
