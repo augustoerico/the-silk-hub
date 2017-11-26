@@ -90,7 +90,6 @@ class CurrentSessionActivity : AppCompatActivity() {
             current_session_crew.adapter = CurrentSessionCrewAdapter(crew)
 
             that.session = session
-            current_session_title.text = session.job.toString()
         }
     }
 }
